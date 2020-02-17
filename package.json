@@ -1,5 +1,5 @@
 {
-  "name": "ghost-storage-b2",
+  "name": "ghost-storage-b2-awesome",
   "version": "0.0.3",
   "description": "Storage adapter for Ghost that uses Backblaze B2",
   "main": "index.js",
