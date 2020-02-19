@@ -3,7 +3,7 @@ const BaseStore = require('ghost-storage-base');
 const B2 = require('backblaze-b2');
 const upath = require('upath');
 const fs = require('fs').promises;
-const got = require('got');
+const getBuffer = require('bent')('buffer');
 
 class Store extends BaseStore {
   constructor(config) {
@@ -93,9 +93,9 @@ class Store extends BaseStore {
     }
 
     // we may receive an absolute url, just pass through in that case
-    // we should file an issue upstream then remove this workaround, eventually
+    // this hack can be removed after https://github.com/TryGhost/Ghost/issues/11604 is fixed
     if (options.path.startsWith('http://') || options.path.startsWith('https://')) {
-      return got(options.path).buffer();
+      return getBuffer(options.path);
     }
 
     // otherwise, build up the absolute url
@@ -105,7 +105,7 @@ class Store extends BaseStore {
     }
 
     const url = `${this.host}/file/${this.bucketName}/${filepath}`;
-    return got(url).buffer();
+    return getBuffer(url);
   }
 }
 
