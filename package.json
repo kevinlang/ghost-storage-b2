@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Kevin Lang <me@gnalck.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gnalck/ghost-storage-b2.git"
+  },
   "dependencies": {
     "backblaze-b2": "1",
     "ghost-storage-base": "0",
