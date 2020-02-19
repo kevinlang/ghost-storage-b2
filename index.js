@@ -92,9 +92,19 @@ class Store extends BaseStore {
       return Promise.reject("Cannot read file - no options.path provided");
     }
 
-    const filepath = upath.join(this.pathPrefix, options.path);
-    const url = `${this.host}/file/${this.bucketName}/${filepath}`;
+    // we may receive an absolute url, just pass through in that case
+    // we should file an issue upstream then remove this workaround, eventually
+    if (options.path.startsWith('http://') || options.path.startsWith('https://')) {
+      return got(options.path).buffer();
+    }
 
+    // otherwise, build up the absolute url
+    const filepath = options.path;
+    if (!filepath.startsWith(this.pathPrefix)) {
+      filepath = upath.join(this.pathPrefix, options.path);
+    }
+
+    const url = `${this.host}/file/${this.bucketName}/${filepath}`;
     return got(url).buffer();
   }
 }
