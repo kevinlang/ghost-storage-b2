@@ -1,73 +1,108 @@
 # Overview
-This is a storage adapter for use with Ghost. 
-It assumes that the Backblaze B2 bucket is public, primarily so that we can download images via Cloudflare for free downloads.
+This is a [storage adapter](https://ghost.org/docs/concepts/storage-adapters/) for use with Ghost. It serves images over a public Backblaze B2 bucket to offload image asset serving from the Ghost Node.js application. It is best used in conjunction with Cloudflare. Cloudflare accelerates image loading via CDN caching and completely B2 bandwidth charges thanks to the [Bandwidth Alliance](https://www.cloudflare.com/bandwidth-alliance/).
+
+# Docker
+If you run your Ghost in the [official community Docker image](), you can use this adapter by updating your base image to be [pubbit/ghost:$VERSION-b2]() instead. 
 
 # Installation
+You can install via fetching the package via Git or NPM and running `npm install` within the package directory. 
+
+## NPM
 ```
-go to ghost root installation folder
-sudo mkdir  -p  ./content/adapters/storage
+# from the root of the Ghost installation
+mkdir -p content/adapters/storage/b2
+cd content/adapters/storage/b2
+npm view ghost-storage-b2 dist.tarball | xargs curl -s | tar -xz --strip-components 1
+npm install
+```
+
+## Git
+```
+# from the root of the Ghost installation
+sudo mkdir -p content/adapters/storage
 cd content/adapters/storage
-sudo git clone https://github.com/anazhd/ghost-storage-b2.git
-sudo npm install
+git clone https://github.com/gnalck/ghost-storage-b2.git b2
+cd b2 && npm install
 ```
-run ```ghost doctor``` in ghost root installation folder and follow fix instruction if there's so. 
 
-### Set Up Your Cloudflare (optional)
-1. First upload something to your bucket from backblaze website and acquire your bucket friendly url.
-Usually it starts with ```fXXX.backblazeb2.com```
-
-2. For sake of example, I use this two example domains ```images.myproject.com``` and ```f000.backblazeb2.com```
-
-3. Go to your domain DNS tab in Cloudflare dashboard and add CNAME record like so
-
-name: ```images``` 
-target: ```f000.backblazeb2.com``` (yours may vary! read step 1)
-proxy status: proxied (orange)
-
-![dns](https://i.imgur.com/HXL7c32.png)
-
-4. Then go to Page Rules tab and copy this and save. take note, your domain name my vary! you should know yours.
-![pagerules](https://i.imgur.com/vGFMJtB.png)
-
-# Main Config
-Edit your ```config.production.json```
-
-For host, if you dont use cloudflare, put your bucket friendly url ```https://fxxx.backblazeb2.com```.
-For path prefix, it is the extra folder on your bucket. i recommend put ```uploads/``` so your file will be uploaded to ```uploads``` folder for sanity.
+# Configuration
+After installation, you will need to update your `production.config.json` to have the required parameters. If using Docker, you can instead pass along the parameters as [environmental variables](https://ghost.org/docs/concepts/config/#running-ghost-with-config-env-variables) instead, to avoid needing to further modify your image.
 
 ```
   "storage": {
-    "active": "ghost-storage-b2",
-    "ghost-storage-b2": {
+    "active": "b2",
+    "b2": {
       "applicationKeyId": "xxxxxxxxxxxx",
       "applicationKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "bucketId": "xxxxxxxxxxxxxxxxxxxxxxxx",
-      "bucketName": "atestbucket",
-      "host": "https://images.myproject.com",
-      "pathPrefix": "uploads/"
+      "bucketName": "your-bucket",
+      "host": "https://images.your-project.com",
+      "pathPrefix": "optionalPath/" 
     }
   }
-
 ```
 
-### Extra (optional)
-You can add below in your config.env.json to reduce load on b2 api since ghost base storage adapter will upload 2 files instead of one. This parameter will remove image optimization and only upload 1 file to your bucket, which is faster.
+### applicationKeyId
+The identifier of your secret key.
 
-```
-  "imageOptimization": {
-    "resize": false
-  }
-```
+### applicationKey
+The secret key for authorizing communication with Backblaze B2.
 
-# Info
-If you follow this, image upload should be working fine. Duplicate (same file name) will be renamed with numbered suffix (duplicate-1.jpg and so on). 
+### bucketId
+The id of the bucket in Backblaze B2. Needed for communication with B2.
 
-Gallery upload is working fine, so you can upload gallery up to 9 images. 
+### bucketName
+The friendly-name of your bucket in Backblaze B2. Used to build up the public-facing URL we return from the storage adapter.
 
-Other plugins or even the one I did for a fix is not working.
+### host
+This should point at either your public Backblaze bucket (`fXXX.backblazeb2.com`) or your CNAME'd Cloudflare-proxying hostname that points to your public Backblaze bucket.
 
-# Why do you need Cloudflare?
-Every call from Cloudflare to BackBlaze is free so this wont effect your daily transaction limit. Direct call from BackBlaze is slower, while cached call through Cloudflare is way faster. If you concern about image load speed, consider using Cloudflare.
+### pathPrefix
+This is an optional prefix to prepend to the path that images are saved in. Images by default are saved at the root of your bucket, you can use this to further nest your save path.
 
-Thanks [Gnalck](https://github.com/gnalck) for this! Happy ghosting.
+# External Configuration
+## Backblaze
+To find the root domain of your Backblaze bucket, you need to upload an arbitrary file to it and then navigate to the file details. The bucket name will show up as `fXXX.backblazeb2.com`.
 
+<details>
+<summary>screenshot</summary>
+
+![the domain from the image details](b2-domain.png)
+</details>
+
+You will either need to use that as your `host` in the config settings, or set up Cloudflare to proxy to that domain (see below).
+
+### Increase TTL (optional)
+Ghost does not overwrite image assets. You can leverage this to set your Cache TTL to be arbitrarily long, with the knowledge that the data will never be "stale".
+
+To increase the TTL to, e.g., 1 year, paste `{"cache-control":"max-age=31536000"}` into your `Bucket Settings`
+
+<details>
+<summary>screenshot</summary>
+
+![updating the cache-control in bucket settings](b2-cache-config.png)
+</details>
+
+## Cloudflare (optional)
+Using the bucket hostname you got above, you can set up Cloudflare to proxy a domain you own to your bucket.
+
+### DNS
+In the example below, we point `images.myproject.com` to `f000.backblazeb2.com`. Make sure the record is proxied (the cloud is orange).
+
+<details>
+<summary>screenshot</summary>
+
+![dns](cloudflare-dns.png)
+</details>
+
+### SSL
+You will want to enable Full/Strict SSL as well. Otherwise you may encounter an infinite redirect issue.
+
+<details>
+<summary>screenshot</summary>
+
+![dns](cloudflare-ssl.png)
+</details>
+
+# Credits
+Thanks to [anazhd](https://github.com/anazhd/) for helping with the README!

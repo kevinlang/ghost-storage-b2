@@ -1,6 +1,6 @@
 {
   "name": "ghost-storage-b2",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Storage adapter for Ghost that uses Backblaze B2",
   "main": "index.js",
   "author": "Kevin Lang <me@gnalck.com>",

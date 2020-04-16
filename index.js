@@ -18,7 +18,6 @@ class Store extends BaseStore {
       this.lastAuthTime = Date.now();
     });
 
-    // does Ghost auto pass along ENV variables?
     this.pathPrefix = config.pathPrefix;
     this.bucketId = config.bucketId;
     this.bucketName = config.bucketName;
