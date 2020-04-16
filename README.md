@@ -2,7 +2,7 @@
 This is a [storage adapter](https://ghost.org/docs/concepts/storage-adapters/) for use with Ghost. It serves images over a public Backblaze B2 bucket to offload image asset serving from the Ghost Node.js application. It is best used in conjunction with Cloudflare. Cloudflare accelerates image loading via CDN caching and completely B2 bandwidth charges thanks to the [Bandwidth Alliance](https://www.cloudflare.com/bandwidth-alliance/).
 
 # Docker
-If you run your Ghost in the [official community Docker image](), you can use this adapter by updating your base image to be [pubbit/ghost:$VERSION-b2]() instead. 
+If you run your Ghost in the [Docker Official Ghost image](https://hub.docker.com/_/ghost/), you can use this adapter by updating your base image to be [pubbit/ghost-b2:latest](https://hub.docker.com/repository/docker/pubbit/ghost-b2) instead. We use the alpine base image and simply copy over and build the adapter using the same methods detailed below.
 
 # Installation
 You can install via fetching the package via Git or NPM and running `npm install` within the package directory. 
