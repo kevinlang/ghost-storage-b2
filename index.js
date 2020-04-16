@@ -1,3 +1,4 @@
+'use strict';
 
 const BaseStore = require('ghost-storage-base');
 const B2 = require('backblaze-b2');
