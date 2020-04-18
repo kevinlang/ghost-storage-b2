@@ -27,9 +27,9 @@ backblaze-b2@1:
     lodash "^4.17.11"
 
 bent@7:
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/bent/-/bent-7.0.6.tgz#fc6d5d2ade610085127ddbce0e6063488594b894"
-  integrity sha512-lDSus5exz6HwJIpqf+aQxqYqA0Xrrca9w3INpqduP1ojlI9bHAURvSn/tzK4cQ0TRB8tt6rvOzIBNFyJvBRqnw==
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/bent/-/bent-7.3.0.tgz#80dc46b7cfcae335214f51004c8783a344114085"
+  integrity sha512-ROfdGmcW1shnkiV/PZhj2Gw0+TiIfBYYs40QBBFYszdd2f2D07zLOTDQm5D411srCacR3Wt5mjLstv0OMmtmFQ==
   dependencies:
     bytesish "^0.4.1"
     caseless "~0.12.0"
