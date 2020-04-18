@@ -17,7 +17,7 @@ axios@^0.18.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-backblaze-b2@1:
+backblaze-b2@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/backblaze-b2/-/backblaze-b2-1.5.0.tgz#bbe6603df65cca0b54c4114b6101a579e8a67c3b"
   integrity sha512-GtI2rFLbX5dbN+qtAyLN/jpIamsprYEt+5yPbgb7UplDdLARIZcvDRNMhToaf6Qs236V/P9cgjsuRr/jiSLkjQ==
@@ -26,7 +26,7 @@ backblaze-b2@1:
     axios-retry "^3.1.2"
     lodash "^4.17.11"
 
-bent@7:
+bent@7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/bent/-/bent-7.3.0.tgz#80dc46b7cfcae335214f51004c8783a344114085"
   integrity sha512-ROfdGmcW1shnkiV/PZhj2Gw0+TiIfBYYs40QBBFYszdd2f2D07zLOTDQm5D411srCacR3Wt5mjLstv0OMmtmFQ==
@@ -59,7 +59,7 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-ghost-storage-base@0:
+ghost-storage-base@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/ghost-storage-base/-/ghost-storage-base-0.0.4.tgz#c5badcab13d1763febc8eb3b293e1eb3a5e511e1"
   integrity sha512-OWL/ONgP24r5s64eH25u8Nb36+MkQALvaeANByaEZlVYXJGkbt+lX+KMmkWMaC9bVpMRTc+ZZE1q/V3V0B0PXQ==
@@ -96,7 +96,7 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
-upath@1:
+upath@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
