@@ -99,7 +99,7 @@ class Store extends BaseStore {
     }
 
     // otherwise, build up the absolute url
-    const filepath = options.path;
+    let filepath = options.path;
     if (!filepath.startsWith(this.pathPrefix)) {
       filepath = upath.join(this.pathPrefix, options.path);
     }
