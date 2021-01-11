@@ -17,10 +17,10 @@ axios@^0.18.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-backblaze-b2@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/backblaze-b2/-/backblaze-b2-1.5.0.tgz#bbe6603df65cca0b54c4114b6101a579e8a67c3b"
-  integrity sha512-GtI2rFLbX5dbN+qtAyLN/jpIamsprYEt+5yPbgb7UplDdLARIZcvDRNMhToaf6Qs236V/P9cgjsuRr/jiSLkjQ==
+backblaze-b2@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/backblaze-b2/-/backblaze-b2-1.6.0.tgz#9d981fdfd38e7684df811a6ac3a8ee25a17fe12e"
+  integrity sha512-rFhx44PfA8btZN/YwfmDoW77Y+WVtZLj1xG9wGvigx+K2UAnliv/4xlbDYRDIAMi31BkYhKVK8VB7VK4IkeXxw==
   dependencies:
     axios "^0.18.0"
     axios-retry "^3.1.2"
