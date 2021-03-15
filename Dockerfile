@@ -1,4 +1,4 @@
-FROM ghost:3.14.0-alpine
+FROM ghost:3.42.1-alpine
 
 # copy our adapter files into content.orig
 COPY LICENSE index.js package.json yarn.lock $GHOST_INSTALL/content.orig/adapters/storage/b2/
