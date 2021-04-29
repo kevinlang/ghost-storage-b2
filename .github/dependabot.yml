@@ -1,0 +1,38 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: ghost
+    versions:
+    - 3.41.2.pre.alpine
+    - 3.41.3.pre.alpine
+    - 3.41.4.pre.alpine
+    - 3.41.5.pre.alpine
+    - 3.41.6.pre.alpine
+    - 3.41.7.pre.alpine
+    - 3.41.8.pre.alpine
+    - 3.41.9.pre.alpine
+    - 3.41.pre.alpine
+    - 3.42.0.pre.alpine
+    - 3.42.1.pre.alpine
+    - 3.42.2.pre.alpine
+    - 4.0.1.pre.alpine
+    - 4.1.0.pre.alpine
+    - 4.1.1.pre.alpine
+    - 4.1.2.pre.alpine
+    - 4.2.0.pre.alpine
+    - 4.2.1.pre.alpine
+    - 4.2.2.pre.alpine
