@@ -10,7 +10,7 @@
     "url": "git://github.com/gnalck/ghost-storage-b2.git"
   },
   "dependencies": {
-    "backblaze-b2": "1.5.0",
+    "backblaze-b2": "1.7.0",
     "ghost-storage-base": "0.0.4",
     "bent": "7.3.0",
     "upath": "1.2.0"
